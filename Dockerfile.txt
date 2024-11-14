@@ -1,0 +1,18 @@
+# Base Image (Refer DockerHub)
+FROM python:3.9-slim-buster
+
+# Initialising package installer in container
+RUN apt-get update && apt-get install -y wget curl
+
+# Setting work directory
+WORKDIR /app
+
+# Copying requirements file to container and installing dependencies
+COPY requirements.txt requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copying Flask app files to the container's work directory
+COPY . .
+
+# Running your Flask app (Change main.py to your main app's name)
+CMD ["python3", "app.py"]
